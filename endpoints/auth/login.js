@@ -5,6 +5,10 @@ const router = express.Router();
 
 const { findUser } = require('../../utils/users');
 const verifyCaptcha = require('../../utils/verifyCaptcha');
+const generateApiKey = require('../../utils/apiKey');
+
+const REQUESTS_LIMIT = 1000;
+const RESET_DAYS = 30;
 
 router.post('/', async (req, res) => {
 
@@ -30,7 +34,7 @@ router.post('/', async (req, res) => {
             });
         }
 
-        const user = findUser(username);
+        const user = await findUser(username);
 
         if (!user) {
             return res.status(401).json({
@@ -58,6 +62,17 @@ router.post('/', async (req, res) => {
             });
         }
 
+        // Auto-migración: si esta cuenta se creó antes de tener API keys, se la asignamos ahora
+        if (!user.apiKey) {
+            user.apiKey = generateApiKey();
+            user.requestsUsed = user.requestsUsed || 0;
+            user.requestsLimit = user.requestsLimit || REQUESTS_LIMIT;
+            user.resetAt =
+                user.resetAt || new Date(Date.now() + RESET_DAYS * 24 * 60 * 60 * 1000);
+
+            await user.save();
+        }
+
         const token = jwt.sign(
             { username: user.username },
             process.env.JWT_SECRET,
@@ -67,7 +82,11 @@ router.post('/', async (req, res) => {
         res.json({
             status: true,
             creator: 'Edward',
-            token
+            token,
+            apiKey: user.apiKey,
+            requestsUsed: user.requestsUsed || 0,
+            requestsLimit: user.unlimited ? null : (user.requestsLimit || REQUESTS_LIMIT),
+            unlimited: !!user.unlimited
         });
 
     } catch (err) {
