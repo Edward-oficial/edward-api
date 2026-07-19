@@ -8,6 +8,19 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/css/style.css">
 <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
+<script>
+(function(){
+    const token = localStorage.getItem("token");
+    if(token){
+        try{
+            const payload = JSON.parse(atob(token.split(".")[1]));
+            if(!payload.exp || Date.now() < payload.exp * 1000){
+                window.location.href = "/";
+            }
+        }catch(err){}
+    }
+})();
+</script>
 </head>
 
 <body>
