@@ -2,7 +2,7 @@ const express = require('express');
 const bcrypt = require('bcryptjs');
 const router = express.Router();
 
-const { readUsers, writeUsers, findUser } = require('../../utils/users');
+const { findUser, createUser } = require('../../utils/users');
 const verifyCaptcha = require('../../utils/verifyCaptcha');
 const generateApiKey = require('../../utils/apiKey');
 
@@ -33,7 +33,9 @@ router.post('/', async (req, res) => {
             });
         }
 
-        if (findUser(username)) {
+        const existing = await findUser(username);
+
+        if (existing) {
             return res.status(409).json({
                 status: false,
                 creator: 'Edward',
@@ -43,22 +45,15 @@ router.post('/', async (req, res) => {
 
         const hash = await bcrypt.hash(password, 10);
 
-        const users = readUsers();
-
-        const newUser = {
+        const newUser = await createUser({
             username,
             password: hash,
             apiKey: generateApiKey(),
             requestsUsed: 0,
             requestsLimit: REQUESTS_LIMIT,
-            resetAt: new Date(Date.now() + RESET_DAYS * 24 * 60 * 60 * 1000).toISOString(),
-            unlimited: false,
-            createdAt: new Date().toISOString()
-        };
-
-        users.push(newUser);
-
-        writeUsers(users);
+            resetAt: new Date(Date.now() + RESET_DAYS * 24 * 60 * 60 * 1000),
+            unlimited: false
+        });
 
         res.json({
             status: true,
