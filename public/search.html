@@ -207,6 +207,15 @@ run("/search/pinterest?q=" + encodeURIComponent(q));
 
 }
 
+function googleSearch(){
+
+const q = document.getElementById("google").value.trim();
+
+if(!q) return;
+
+run("/search/google?q=" + encodeURIComponent(q));
+
+}
 
 </script>
 
