@@ -41,9 +41,22 @@
 
 <div class="card">
 
+<div class="desc">
+API KEY
+</div>
+
+<input
+id="apiKeyInput"
+placeholder="Edward-xxxxxxxxxxxxxxxx"
+>
+
+</div>
+
+<div class="card">
+
 <div class="method">GET</div>
 
-<div class="path">/search/yt?q=texto&apikey=TU_API_KEY</div>
+<div class="path" data-endpoint="/search/yt?q=texto&apikey=TU_API_KEY">/search/yt?q=texto&apikey=TU_API_KEY</div>
 
 <div class="desc">
 Buscar videos de YouTube
@@ -60,7 +73,7 @@ placeholder="Escribe lo que deseas buscar..."
 Buscar
 </button>
 
-<button class="copy" onclick="copyEndpoint('/search/yt?q=texto&apikey=TU_API_KEY')">
+<button class="copy" onclick="copyEndpoint(this)">
 Copiar Endpoint
 </button>
 
@@ -72,7 +85,7 @@ Copiar Endpoint
 
 <div class="method">GET</div>
 
-<div class="path">/search/tiktok?q=texto&apikey=TU_API_KEY</div>
+<div class="path" data-endpoint="/search/tiktok?q=texto&apikey=TU_API_KEY">/search/tiktok?q=texto&apikey=TU_API_KEY</div>
 
 <div class="desc">
 Buscar videos de TikTok
@@ -89,7 +102,7 @@ placeholder="Escribe lo que deseas buscar..."
 Buscar
 </button>
 
-<button class="copy" onclick="copyEndpoint('/search/tiktok?q=texto&apikey=TU_API_KEY')">
+<button class="copy" onclick="copyEndpoint(this)">
 Copiar Endpoint
 </button>
 
@@ -101,7 +114,7 @@ Copiar Endpoint
 
 <div class="method">GET</div>
 
-<div class="path">/search/pinterest?q=texto&apikey=TU_API_KEY</div>
+<div class="path" data-endpoint="/search/pinterest?q=texto&apikey=TU_API_KEY">/search/pinterest?q=texto&apikey=TU_API_KEY</div>
 
 <div class="desc">
 Buscar imágenes en Pinterest
@@ -118,7 +131,7 @@ placeholder="Escribe lo que deseas buscar..."
 Buscar
 </button>
 
-<button class="copy" onclick="copyEndpoint('/search/pinterest?q=texto&apikey=TU_API_KEY')">
+<button class="copy" onclick="copyEndpoint(this)">
 Copiar Endpoint
 </button>
 
@@ -130,7 +143,7 @@ Copiar Endpoint
 
 <div class="method">GET</div>
 
-<div class="path">/search/google?q=texto&apikey=TU_API_KEY</div>
+<div class="path" data-endpoint="/search/google?q=texto&apikey=TU_API_KEY">/search/google?q=texto&apikey=TU_API_KEY</div>
 
 <div class="desc">
 Buscar en Google (Web)
@@ -147,7 +160,7 @@ placeholder="Escribe lo que deseas buscar..."
 Buscar
 </button>
 
-<button class="copy" onclick="copyEndpoint('/search/google?q=texto&apikey=TU_API_KEY')">
+<button class="copy" onclick="copyEndpoint(this)">
 Copiar Endpoint
 </button>
 
