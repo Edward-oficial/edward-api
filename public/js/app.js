@@ -34,21 +34,31 @@ async function run(path){
         json.textContent = last;
 
     }catch{
+
         json.textContent = "Error al obtener datos.";
+
     }
+
 }
 
 function copyEndpoint(path){
+
     navigator.clipboard.writeText(location.origin + path);
+
     toast();
+
 }
 
 function copyJson(){
+
     navigator.clipboard.writeText(last);
+
     toast();
+
 }
 
 function copyApiKey(){
+
     const key = localStorage.getItem("apiKey");
 
     if(!key){
@@ -57,18 +67,45 @@ function copyApiKey(){
     }
 
     navigator.clipboard.writeText(key);
+
     toast();
+
 }
 
+document.addEventListener("DOMContentLoaded", function(){
+
+    const input = document.getElementById("apiKeyInput");
+
+    if(input){
+
+        input.value = localStorage.getItem("apiKey") || "";
+
+        input.addEventListener("input", function(){
+            localStorage.setItem("apiKey", input.value.trim());
+        });
+
+    }
+
+});
+
 function logout(){
+
     localStorage.removeItem("token");
+
     window.location.href = "/login";
+
 }
 
 function toast(){
+
     const t = document.getElementById("toast");
+
     t.style.display = "block";
+
     setTimeout(() => {
+
         t.style.display = "none";
+
     }, 1800);
+
 }
