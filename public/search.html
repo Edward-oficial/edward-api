@@ -47,7 +47,11 @@
 
 <div class="endpoint-panel">
 <input id="ytInput" placeholder="Escribe tu búsqueda...">
+
 <button onclick="runInline('ytInput','/search/yt?q=','ytResult')">Ejecutar</button>
+<button onclick="copyEndpoint('/search/yt?q=')">Copiar endpoint</button>
+<button onclick="copyResult('ytResult')">Copiar JSON</button>
+
 <pre id="ytResult">Resultado aquí...</pre>
 </div>
 </div>
@@ -60,7 +64,11 @@
 
 <div class="endpoint-panel">
 <input id="ttInput" placeholder="Escribe tu búsqueda...">
+
 <button onclick="runInline('ttInput','/search/tiktok?q=','ttResult')">Ejecutar</button>
+<button onclick="copyEndpoint('/search/tiktok?q=')">Copiar endpoint</button>
+<button onclick="copyResult('ttResult')">Copiar JSON</button>
+
 <pre id="ttResult">Resultado aquí...</pre>
 </div>
 </div>
@@ -73,7 +81,11 @@
 
 <div class="endpoint-panel">
 <input id="pinInput" placeholder="Escribe tu búsqueda...">
+
 <button onclick="runInline('pinInput','/search/pinterest?q=','pinResult')">Ejecutar</button>
+<button onclick="copyEndpoint('/search/pinterest?q=')">Copiar endpoint</button>
+<button onclick="copyResult('pinResult')">Copiar JSON</button>
+
 <pre id="pinResult">Resultado aquí...</pre>
 </div>
 </div>
@@ -108,6 +120,44 @@ async function runInline(inputId, endpoint, resultId){
   }catch(err){
     document.getElementById(resultId).textContent = "Error al ejecutar";
   }
+}
+
+// ===============================
+// COPIAR ENDPOINT
+// ===============================
+function copyEndpoint(endpoint){
+  navigator.clipboard.writeText(endpoint)
+    .then(() => showToast("Endpoint copiado"))
+    .catch(() => showToast("Error al copiar"));
+}
+
+// ===============================
+// COPIAR JSON
+// ===============================
+function copyResult(resultId){
+  const text = document.getElementById(resultId).textContent;
+
+  if(!text || text === "Resultado aquí..."){
+    showToast("No hay JSON para copiar");
+    return;
+  }
+
+  navigator.clipboard.writeText(text)
+    .then(() => showToast("JSON copiado"))
+    .catch(() => showToast("Error al copiar"));
+}
+
+// ===============================
+// TOAST
+// ===============================
+function showToast(msg){
+  const toast = document.getElementById("toast");
+  toast.textContent = msg;
+  toast.classList.add("show");
+
+  setTimeout(() => {
+    toast.classList.remove("show");
+  }, 2000);
 }
 </script>
 
