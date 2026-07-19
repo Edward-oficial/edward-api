@@ -11,13 +11,8 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.get('/', (req, res) => {
-    res.json({
-        status: true,
-        creator: 'Edward',
-        message: 'API activa'
-    });
-});
+// Servir archivos estáticos (página de inicio)
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Monta automáticamente todo lo que haya en /endpoints
 loadRoutes(app, path.join(__dirname, 'endpoints'));
