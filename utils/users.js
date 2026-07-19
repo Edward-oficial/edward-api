@@ -1,21 +1,25 @@
-const User = require('../models/User');
+const fs = require('fs');
+const path = require('path');
 
-async function readUsers() {
-    return User.find({});
+const DB_PATH = path.join(__dirname, '..', 'data', 'users.json');
+
+function readUsers() {
+    try {
+        const raw = fs.readFileSync(DB_PATH, 'utf-8');
+        return JSON.parse(raw || '[]');
+    } catch (err) {
+        return [];
+    }
 }
 
-async function findUser(username) {
-    return User.findOne({
-        username: new RegExp(`^${username}$`, 'i')
-    });
+function writeUsers(users) {
+    fs.writeFileSync(DB_PATH, JSON.stringify(users, null, 2));
 }
 
-async function findByApiKey(apiKey) {
-    return User.findOne({ apiKey });
+function findUser(username) {
+    return readUsers().find(
+        u => u.username.toLowerCase() === String(username).toLowerCase()
+    );
 }
 
-async function createUser(data) {
-    return User.create(data);
-}
-
-module.exports = { readUsers, findUser, findByApiKey, createUser, User };
+module.exports = { readUsers, writeUsers, findUser };
