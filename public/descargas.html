@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Descargas • Edward API</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+
+<header class="topbar">
+<button class="hamburger" onclick="toggleMenu()" aria-label="Menú">
+<span></span><span></span><span></span>
+</button>
+<div class="brand">Edward API</div>
+</header>
+
+<div class="overlay" id="overlay" onclick="closeMenu()"></div>
+
+<nav class="sidemenu" id="sideMenu">
+<div class="sidemenu-title">Categorías</div>
+<a href="/" class="menu-link">Inicio</a>
+<a href="/search" class="menu-link">Search</a>
+<a href="/descargas" class="menu-link active">Descargas</a>
+<a href="/anime" class="menu-link">Anime</a>
+</nav>
+
+<div class="container">
+
+<h2>Descargas</h2>
+<p class="subtitle" style="margin-bottom:20px;text-align:left;">Endpoints de descarga</p>
+
+<div class="empty">
+Todavía no hay endpoints en esta categoría.<br>
+xd<b>/endpoints/descargas</b>, sus tarjetas van aquí.
+</div>
+
+</div>
+
+<div class="toast" id="toast">
+Copiado al portapapeles
+</div>
+
+<script src="/js/app.js"></script>
+
+</body>
+</html>
