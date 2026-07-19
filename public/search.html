@@ -41,71 +41,43 @@
 
 <!-- YOUTUBE -->
 <div class="card">
-<div class="method">GET</div>
+<div class="method" onclick="toggleEndpoint(this)">GET</div>
 <div class="path">/search/yt?q=texto</div>
 <div class="desc">Buscar videos de YouTube</div>
 
-<div class="buttons">
-<button class="test" onclick="openModal('YouTube Search','/search/yt?q=')">
-Probar
-</button>
-<button class="copy" onclick="copyEndpoint('/search/yt?q=texto')">
-Copiar Endpoint
-</button>
+<div class="endpoint-panel">
+<input id="ytInput" placeholder="Escribe tu búsqueda...">
+<button onclick="runInline('ytInput','/search/yt?q=','ytResult')">Ejecutar</button>
+<pre id="ytResult">Resultado aquí...</pre>
 </div>
 </div>
 
 <!-- TIKTOK -->
 <div class="card">
-<div class="method">GET</div>
+<div class="method" onclick="toggleEndpoint(this)">GET</div>
 <div class="path">/search/tiktok?q=texto</div>
 <div class="desc">Buscar videos de TikTok</div>
 
-<div class="buttons">
-<button class="test" onclick="openModal('TikTok Search','/search/tiktok?q=')">
-Probar
-</button>
-<button class="copy" onclick="copyEndpoint('/search/tiktok?q=texto')">
-Copiar Endpoint
-</button>
+<div class="endpoint-panel">
+<input id="ttInput" placeholder="Escribe tu búsqueda...">
+<button onclick="runInline('ttInput','/search/tiktok?q=','ttResult')">Ejecutar</button>
+<pre id="ttResult">Resultado aquí...</pre>
 </div>
 </div>
 
 <!-- PINTEREST -->
 <div class="card">
-<div class="method">GET</div>
+<div class="method" onclick="toggleEndpoint(this)">GET</div>
 <div class="path">/search/pinterest?q=texto</div>
 <div class="desc">Buscar imágenes en Pinterest</div>
 
-<div class="buttons">
-<button class="test" onclick="openModal('Pinterest Search','/search/pinterest?q=')">
-Probar
-</button>
-<button class="copy" onclick="copyEndpoint('/search/pinterest?q=texto')">
-Copiar Endpoint
-</button>
+<div class="endpoint-panel">
+<input id="pinInput" placeholder="Escribe tu búsqueda...">
+<button onclick="runInline('pinInput','/search/pinterest?q=','pinResult')">Ejecutar</button>
+<pre id="pinResult">Resultado aquí...</pre>
 </div>
 </div>
 
-</div>
-
-<!-- ===== MODAL ===== -->
-<div id="apiModal" class="api-modal">
-  <div class="api-box">
-
-    <div class="api-header">
-      <span id="apiTitle">Test Endpoint</span>
-      <button onclick="closeModal()">✕</button>
-    </div>
-
-    <div class="api-body">
-      <input id="apiInput" placeholder="Escribe tu búsqueda...">
-      <button onclick="runModal()">Ejecutar</button>
-
-      <pre id="apiResult">Aquí aparecerá el resultado...</pre>
-    </div>
-
-  </div>
 </div>
 
 <div class="toast" id="toast">
@@ -115,42 +87,28 @@ Copiado al portapapeles
 <script src="/js/app.js"></script>
 
 <script>
-
-/* ===== MODAL LOGIC ===== */
-
-let currentEndpoint = "";
-
-function openModal(title, endpoint){
-  document.getElementById("apiModal").style.display = "flex";
-  document.getElementById("apiTitle").innerText = title;
-  document.getElementById("apiInput").value = "";
-  document.getElementById("apiResult").textContent = "Aquí aparecerá el resultado...";
-  currentEndpoint = endpoint;
+function toggleEndpoint(el){
+  const panel = el.parentElement.querySelector('.endpoint-panel');
+  panel.classList.toggle('open');
 }
 
-function closeModal(){
-  document.getElementById("apiModal").style.display = "none";
-}
-
-async function runModal(){
-  const q = document.getElementById("apiInput").value.trim();
+async function runInline(inputId, endpoint, resultId){
+  const q = document.getElementById(inputId).value.trim();
   if(!q) return;
 
-  const url = currentEndpoint + encodeURIComponent(q);
+  const url = endpoint + encodeURIComponent(q);
 
   try{
     const res = await fetch(url);
     const data = await res.json();
 
-    document.getElementById("apiResult").textContent =
+    document.getElementById(resultId).textContent =
       JSON.stringify(data, null, 2);
 
   }catch(err){
-    document.getElementById("apiResult").textContent =
-      "Error al ejecutar la petición";
+    document.getElementById(resultId).textContent = "Error al ejecutar";
   }
 }
-
 </script>
 
 </body>
