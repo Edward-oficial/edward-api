@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login • Edward API</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/style.css">
+<script src="https://js.hcaptcha.com/1/api.js" async defer></script>
+</head>
+
+<body>
+
+<header class="topbar">
+<button class="hamburger" onclick="toggleMenu()" aria-label="Menú">
+<span></span><span></span><span></span>
+</button>
+<div class="brand">Edward API</div>
+</header>
+
+<div class="overlay" id="overlay" onclick="closeMenu()"></div>
+
+<nav class="sidemenu" id="sideMenu">
+<div class="sidemenu-title">Categorías</div>
+<a href="/" class="menu-link">Inicio</a>
+<a href="/search" class="menu-link">Search</a>
+<a href="/descargas" class="menu-link">Descargas</a>
+<a href="/anime" class="menu-link">Anime</a>
+<div class="sidemenu-title" style="margin-top:20px;">Cuenta</div>
+<a href="/login" class="menu-link active">Login</a>
+<a href="/register" class="menu-link">Registro</a>
+</nav>
+
+<div class="container">
+
+<h2>Iniciar sesión</h2>
+<p class="subtitle" style="margin-bottom:20px;text-align:left;">Entra con tu cuenta</p>
+
+<div class="card">
+
+<input id="username" placeholder="Usuario">
+<input id="password" type="password" placeholder="Contraseña">
+
+<div class="h-captcha" data-sitekey="1778e6c4-71da-4594-afe0-ba5643ce74a4"></div>
+
+<div class="buttons" style="margin-top:15px;">
+<button class="test" onclick="doLogin()">
+Entrar
+</button>
+</div>
+
+</div>
+
+<div class="result">
+
+<pre id="json">
+Aquí aparecerá el resultado...
+</pre>
+
+</div>
+
+<p class="subtitle" style="text-align:left;">
+¿No tienes cuenta? <a href="/register" style="color:#00e5ff;">Regístrate</a>
+</p>
+
+</div>
+
+<div class="toast" id="toast">
+Copiado al portapapeles
+</div>
+
+<script src="/js/app.js"></script>
+<script>
+
+async function doLogin(){
+
+const username = document.getElementById("username").value.trim();
+const password = document.getElementById("password").value;
+const captchaToken = hcaptcha.getResponse();
+
+const json = document.getElementById("json");
+
+if(!username || !password){
+    json.textContent = "Escribe usuario y contraseña.";
+    return;
+}
+
+if(!captchaToken){
+    json.textContent = "Completa el captcha.";
+    return;
+}
+
+json.textContent = "Enviando...";
+
+try{
+
+    const res = await fetch("/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password, captchaToken })
+    });
+
+    const data = await res.json();
+
+    json.textContent = JSON.stringify(data, null, 2);
+
+    if(data.status && data.token){
+        localStorage.setItem("token", data.token);
+    }
+
+    hcaptcha.reset();
+
+}catch{
+
+    json.textContent = "Error al iniciar sesión.";
+
+}
+
+}
+
+</script>
+
+</body>
+</html>
