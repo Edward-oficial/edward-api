@@ -4,6 +4,7 @@ const cors = require('cors');
 const path = require('path');
 
 const loadRoutes = require('./utils/loadRoutes');
+const { seedAdmin } = require('./utils/seedAdmin');
 const { notFound, errorHandler } = require('./middleware/errorHandler');
 
 const app = express();
@@ -35,6 +36,10 @@ app.get('/register', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'register.html'));
 });
 
+app.get('/admin', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'admin.html'));
+});
+
 // Monta automáticamente todo lo que haya en /endpoints
 loadRoutes(app, path.join(__dirname, 'endpoints'));
 
@@ -42,6 +47,9 @@ app.use(notFound);
 app.use(errorHandler);
 
 const PORT = process.env.PORT || 3000;
+
+seedAdmin().catch(err => console.error('Error al crear cuenta admin:', err));
+
 app.listen(PORT, () => {
     console.log(`Servidor corriendo en el puerto ${PORT}`);
 });
