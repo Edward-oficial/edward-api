@@ -50,6 +50,14 @@ function copyJson(){
 
 }
 
+function logout(){
+
+    localStorage.removeItem("token");
+
+    window.location.href = "/login";
+
+}
+
 function toast(){
 
     const t = document.getElementById("toast");
