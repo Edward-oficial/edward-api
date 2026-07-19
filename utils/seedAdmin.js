@@ -1,5 +1,5 @@
 const bcrypt = require('bcryptjs');
-const User = require('../models/User');
+const { readUsers, writeUsers } = require('./users');
 const generateApiKey = require('./apiKey');
 
 // Cuenta de administrador que se crea sola si no existe.
@@ -9,28 +9,28 @@ const ADMIN_PASSWORD = 'cololacalempira5@gmail.com';
 
 async function seedAdmin() {
 
-    let admin = await User.findOne({
-        username: new RegExp(`^${ADMIN_EMAIL}$`, 'i')
-    });
+    const users = readUsers();
 
-    if (!admin) {
-
-        const hash = await bcrypt.hash(ADMIN_PASSWORD, 10);
-
-        admin = await User.create({
-            username: ADMIN_EMAIL,
-            password: hash,
-            role: 'admin',
-            unlimited: true,
-            apiKey: generateApiKey(),
-            requestsUsed: 0
-        });
-
-        console.log('Cuenta admin creada automáticamente:', ADMIN_EMAIL);
-        return;
-    }
+    let admin = users.find(
+        u => u.username.toLowerCase() === ADMIN_EMAIL.toLowerCase()
+    );
 
     let changed = false;
+
+    if (!admin) {
+        const hash = await bcrypt.hash(ADMIN_PASSWORD, 10);
+
+        admin = {
+            username: ADMIN_EMAIL,
+            password: hash,
+            createdAt: new Date().toISOString()
+        };
+
+        users.push(admin);
+        changed = true;
+
+        console.log('Cuenta admin creada automáticamente:', ADMIN_EMAIL);
+    }
 
     if (admin.role !== 'admin') {
         admin.role = 'admin';
@@ -47,13 +47,13 @@ async function seedAdmin() {
         changed = true;
     }
 
-    if (admin.requestsUsed === undefined || admin.requestsUsed === null) {
+    if (admin.requestsUsed === undefined) {
         admin.requestsUsed = 0;
         changed = true;
     }
 
     if (changed) {
-        await admin.save();
+        writeUsers(users);
         console.log('Cuenta admin actualizada. API key:', admin.apiKey);
     }
 }
