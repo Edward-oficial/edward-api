@@ -122,6 +122,10 @@ try{
         localStorage.setItem("token", data.token);
     }
 
+    if(data.status && data.apiKey){
+        localStorage.setItem("apiKey", data.apiKey);
+    }
+
     hcaptcha.reset();
 
 }catch(err){
