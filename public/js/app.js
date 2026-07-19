@@ -41,9 +41,14 @@ async function run(path){
 
 }
 
-function copyEndpoint(path){
+function copyEndpoint(btn){
 
-    navigator.clipboard.writeText(location.origin + path);
+    const card = btn.closest(".card");
+    const pathEl = card ? card.querySelector(".path") : null;
+
+    if(!pathEl) return;
+
+    navigator.clipboard.writeText(location.origin + pathEl.textContent.trim());
 
     toast();
 
@@ -72,6 +77,16 @@ function copyApiKey(){
 
 }
 
+function refreshApiKeyInPaths(){
+
+    const apiKey = localStorage.getItem("apiKey") || "TU_API_KEY";
+
+    document.querySelectorAll(".path[data-endpoint]").forEach(function(el){
+        el.textContent = el.getAttribute("data-endpoint").replace("TU_API_KEY", apiKey);
+    });
+
+}
+
 document.addEventListener("DOMContentLoaded", function(){
 
     const input = document.getElementById("apiKeyInput");
@@ -82,9 +97,12 @@ document.addEventListener("DOMContentLoaded", function(){
 
         input.addEventListener("input", function(){
             localStorage.setItem("apiKey", input.value.trim());
+            refreshApiKeyInPaths();
         });
 
     }
+
+    refreshApiKeyInPaths();
 
 });
 
