@@ -13,12 +13,19 @@ function closeMenu(){
 async function run(path){
 
     const json = document.getElementById("json");
+    const apiKey = localStorage.getItem("apiKey");
+
+    let finalPath = path;
+
+    if(apiKey){
+        finalPath += (path.includes("?") ? "&" : "?") + "apikey=" + encodeURIComponent(apiKey);
+    }
 
     json.textContent = "Cargando...";
 
     try{
 
-        const res = await fetch(path);
+        const res = await fetch(finalPath);
 
         const data = await res.json();
 
@@ -45,6 +52,21 @@ function copyEndpoint(path){
 function copyJson(){
 
     navigator.clipboard.writeText(last);
+
+    toast();
+
+}
+
+function copyApiKey(){
+
+    const key = localStorage.getItem("apiKey");
+
+    if(!key){
+        alert("No se encontró tu API key. Cierra sesión y vuelve a entrar.");
+        return;
+    }
+
+    navigator.clipboard.writeText(key);
 
     toast();
 
