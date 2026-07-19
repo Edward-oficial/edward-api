@@ -27,6 +27,14 @@ app.get('/anime', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'anime.html'));
 });
 
+app.get('/login', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'login.html'));
+});
+
+app.get('/register', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'register.html'));
+});
+
 // Monta automáticamente todo lo que haya en /endpoints
 loadRoutes(app, path.join(__dirname, 'endpoints'));
 
