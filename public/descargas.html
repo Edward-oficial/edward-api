@@ -41,9 +41,22 @@
 
 <div class="card">
 
+<div class="desc">
+API KEY
+</div>
+
+<input
+id="apiKeyInput"
+placeholder="Edward-xxxxxxxxxxxxxxxx"
+>
+
+</div>
+
+<div class="card">
+
 <div class="method">GET</div>
 
-<div class="path">/descargas/youtube?url=link&apikey=TU_API_KEY</div>
+<div class="path" data-endpoint="/descargas/youtube?url=link&apikey=TU_API_KEY">/descargas/youtube?url=link&apikey=TU_API_KEY</div>
 
 <div class="desc">
 Descargar video de YouTube (opcional: &quality=144/240/360/480/720/1080)
@@ -60,7 +73,7 @@ placeholder="Pega el link de YouTube..."
 Probar
 </button>
 
-<button class="copy" onclick="copyEndpoint('/descargas/youtube?url=link&apikey=TU_API_KEY')">
+<button class="copy" onclick="copyEndpoint(this)">
 Copiar Endpoint
 </button>
 
@@ -72,7 +85,7 @@ Copiar Endpoint
 
 <div class="method">GET</div>
 
-<div class="path">/descargas/ytaudio?url=link&apikey=TU_API_KEY</div>
+<div class="path" data-endpoint="/descargas/ytaudio?url=link&apikey=TU_API_KEY">/descargas/ytaudio?url=link&apikey=TU_API_KEY</div>
 
 <div class="desc">
 Descargar solo el audio (mp3) de un video de YouTube
@@ -89,7 +102,7 @@ placeholder="Pega el link de YouTube..."
 Probar
 </button>
 
-<button class="copy" onclick="copyEndpoint('/descargas/ytaudio?url=link&apikey=TU_API_KEY')">
+<button class="copy" onclick="copyEndpoint(this)">
 Copiar Endpoint
 </button>
 
@@ -101,7 +114,7 @@ Copiar Endpoint
 
 <div class="method">GET</div>
 
-<div class="path">/descargas/tiktok?url=link&apikey=TU_API_KEY</div>
+<div class="path" data-endpoint="/descargas/tiktok?url=link&apikey=TU_API_KEY">/descargas/tiktok?url=link&apikey=TU_API_KEY</div>
 
 <div class="desc">
 Descargar un video de TikTok sin marca de agua
@@ -118,7 +131,7 @@ placeholder="Pega el link de TikTok..."
 Probar
 </button>
 
-<button class="copy" onclick="copyEndpoint('/descargas/tiktok?url=link&apikey=TU_API_KEY')">
+<button class="copy" onclick="copyEndpoint(this)">
 Copiar Endpoint
 </button>
 
