@@ -6,83 +6,74 @@
     <title>Edward API</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap');
-        :root {
-            --bg: #0a0a0a;
-            --accent: #00f5ff;
-            --text: #e0e0e0;
-        }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            background: var(--bg);
-            color: var(--text);
+            background: #0a0a0a;
+            color: #e0e0e0;
             font-family: 'Space Grotesk', sans-serif;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            margin: 0;
+            padding: 40px 20px;
             text-align: center;
-            padding: 20px;
         }
-        .container {
+        h1 { font-size: 3.5rem; margin-bottom: 10px; background: linear-gradient(90deg, #00f5ff, #ff00ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .endpoints {
+            margin: 40px auto;
             max-width: 800px;
+            text-align: left;
         }
-        h1 {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-            background: linear-gradient(90deg, #00f5ff, #ff00ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        p {
-            font-size: 1.3rem;
-            margin-bottom: 2rem;
-            opacity: 0.9;
+        .endpoint {
+            background: #1a1a1a;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
         .btn {
-            display: inline-block;
-            padding: 14px 32px;
-            background: var(--accent);
+            background: #00f5ff;
             color: #000;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 1.1rem;
-            transition: all 0.3s;
-            margin: 10px;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
         }
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(0, 245, 255, 0.4);
-        }
-        .endpoints {
-            margin-top: 3rem;
-            text-align: left;
-            background: #1a1a1a;
-            padding: 20px;
-            border-radius: 12px;
-        }
-        code {
+        pre {
+            background: #111;
+            padding: 10px;
+            border-radius: 6px;
             font-family: 'JetBrains Mono', monospace;
-            background: #222;
-            padding: 2px 6px;
-            border-radius: 4px;
+            overflow-x: auto;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Edward API</h1>
-        <p>API rápida, limpia y fácil de extender.<br>Desarrollada por Edward.</p>
-        
-        <a href="/api/status" class="btn">Ver Estado de la API</a>
-        <a href="https://github.com/Edward-oficial/edward-api" target="_blank" class="btn">Ver en GitHub</a>
+    <h1>Edward API</h1>
+    <p>API por Edward - Rápida y extensible</p>
 
-        <div class="endpoints">
-            <h2>Endpoints disponibles</h2>
-            <p><strong>/</strong> — Esta página</p>
-            <p><strong>/ejemplo/ping</strong> — Ejemplo</p>
-            <p>Agrega tus propios endpoints en la carpeta <code>endpoints/</code></p>
+    <div class="endpoints">
+        <h2>Endpoints disponibles</h2>
+        <div class="endpoint">
+            <div><strong>/</strong> - Página de inicio</div>
+            <button class="btn" onclick="testEndpoint('/')">Probar</button>
+        </div>
+        <div class="endpoint">
+            <div><strong>/search/yt?q=bad bunny</strong> - Búsqueda YouTube</div>
+            <button class="btn" onclick="testEndpoint('/search/yt?q=bad%20bunny')">Probar</button>
+        </div>
+        <div class="endpoint">
+            <div><strong>/ejemplo/ping</strong> - Ejemplo</div>
+            <button class="btn" onclick="testEndpoint('/ejemplo/ping')">Probar</button>
         </div>
     </div>
+
+    <div id="result"></div>
+
+    <script>
+        async function testEndpoint(path) {
+            const res = await fetch(path);
+            const data = await res.json();
+            document.getElementById('result').innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+        }
+    </script>
 </body>
 </html>
