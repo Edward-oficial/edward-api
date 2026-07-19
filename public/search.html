@@ -96,6 +96,64 @@ Copiar Endpoint
 
 </div>
 
+<div class="card">
+
+<div class="method">GET</div>
+
+<div class="path">/search/pinterest?q=texto</div>
+
+<div class="desc">
+Buscar imágenes en Pinterest
+</div>
+
+<input
+id="pinterest"
+placeholder="Escribe lo que deseas buscar..."
+>
+
+<div class="buttons">
+
+<button class="test" onclick="pinterestSearch()">
+Buscar
+</button>
+
+<button class="copy" onclick="copyEndpoint('/search/pinterest?q=texto')">
+Copiar Endpoint
+</button>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<div class="method">GET</div>
+
+<div class="path">/search/google?q=texto</div>
+
+<div class="desc">
+Buscar en Google (Web)
+</div>
+
+<input
+id="google"
+placeholder="Escribe lo que deseas buscar..."
+>
+
+<div class="buttons">
+
+<button class="test" onclick="googleSearch()">
+Buscar
+</button>
+
+<button class="copy" onclick="copyEndpoint('/search/google?q=texto')">
+Copiar Endpoint
+</button>
+
+</div>
+
+</div>
+
 <div class="result">
 
 <pre id="json">
@@ -138,6 +196,17 @@ if(!q) return;
 run("/search/tiktok?q=" + encodeURIComponent(q));
 
 }
+
+function pinterestSearch(){
+
+const q = document.getElementById("pinterest").value.trim();
+
+if(!q) return;
+
+run("/search/pinterest?q=" + encodeURIComponent(q));
+
+}
+
 
 </script>
 
