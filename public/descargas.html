@@ -38,9 +38,99 @@
 <h2>Descargas</h2>
 <p class="subtitle" style="margin-bottom:20px;text-align:left;">Endpoints de descarga</p>
 
-<div class="empty">
-Todavía no hay endpoints en esta categoría.<br>
-Cuando agregues archivos dentro de <b>/endpoints/descargas</b>, sus tarjetas van aquí.
+<div class="card">
+
+<div class="method">GET</div>
+
+<div class="path">/descargas/youtube?url=link</div>
+
+<div class="desc">
+Descargar video de YouTube (opcional: &quality=144/240/360/480/720/1080)
+</div>
+
+<input
+id="youtube"
+placeholder="Pega el link de YouTube..."
+>
+
+<div class="buttons">
+
+<button class="test" onclick="youtubeUrl()">
+Probar
+</button>
+
+<button class="copy" onclick="copyEndpoint('/descargas/youtube?url=link')">
+Copiar Endpoint
+</button>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<div class="method">GET</div>
+
+<div class="path">/descargas/ytaudio?url=link</div>
+
+<div class="desc">
+Descargar solo el audio (mp3) de un video de YouTube
+</div>
+
+<input
+id="ytaudio"
+placeholder="Pega el link de YouTube..."
+>
+
+<div class="buttons">
+
+<button class="test" onclick="ytaudioUrl()">
+Probar
+</button>
+
+<button class="copy" onclick="copyEndpoint('/descargas/ytaudio?url=link')">
+Copiar Endpoint
+</button>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<div class="method">GET</div>
+
+<div class="path">/descargas/tiktok?url=link</div>
+
+<div class="desc">
+Descargar un video de TikTok sin marca de agua
+</div>
+
+<input
+id="tiktokUrl"
+placeholder="Pega el link de TikTok..."
+>
+
+<div class="buttons">
+
+<button class="test" onclick="tiktokUrl()">
+Probar
+</button>
+
+<button class="copy" onclick="copyEndpoint('/descargas/tiktok?url=link')">
+Copiar Endpoint
+</button>
+
+</div>
+
+</div>
+
+<div class="result">
+
+<pre id="json">
+Aquí aparecerá el resultado...
+</pre>
+
 </div>
 
 </div>
@@ -50,6 +140,39 @@ Copiado al portapapeles
 </div>
 
 <script src="/js/app.js"></script>
+<script>
+
+function youtubeUrl(){
+
+const url = document.getElementById("youtube").value.trim();
+
+if(!url) return;
+
+run("/descargas/youtube?url=" + encodeURIComponent(url));
+
+}
+
+function ytaudioUrl(){
+
+const url = document.getElementById("ytaudio").value.trim();
+
+if(!url) return;
+
+run("/descargas/ytaudio?url=" + encodeURIComponent(url));
+
+}
+
+function tiktokUrl(){
+
+const url = document.getElementById("tiktokUrl").value.trim();
+
+if(!url) return;
+
+run("/descargas/tiktok?url=" + encodeURIComponent(url));
+
+}
+
+</script>
 
 </body>
 </html>
