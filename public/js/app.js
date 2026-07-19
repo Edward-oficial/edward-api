@@ -34,31 +34,21 @@ async function run(path){
         json.textContent = last;
 
     }catch{
-
         json.textContent = "Error al obtener datos.";
-
     }
-
 }
 
 function copyEndpoint(path){
-
     navigator.clipboard.writeText(location.origin + path);
-
     toast();
-
 }
 
 function copyJson(){
-
     navigator.clipboard.writeText(last);
-
     toast();
-
 }
 
 function copyApiKey(){
-
     const key = localStorage.getItem("apiKey");
 
     if(!key){
@@ -67,29 +57,18 @@ function copyApiKey(){
     }
 
     navigator.clipboard.writeText(key);
-
     toast();
-
 }
 
 function logout(){
-
     localStorage.removeItem("token");
-
     window.location.href = "/login";
-
 }
 
 function toast(){
-
     const t = document.getElementById("toast");
-
     t.style.display = "block";
-
     setTimeout(() => {
-
         t.style.display = "none";
-
     }, 1800);
-
 }
