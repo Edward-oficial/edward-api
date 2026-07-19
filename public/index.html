@@ -55,6 +55,11 @@ API rápida • Moderna • Optimizada
 </div>
 
 <div class="box">
+<h3>Solicitudes</h3>
+<span id="requestsBox">Cargando...</span>
+</div>
+
+<div class="box">
 <h3>Método</h3>
 <span>GET</span>
 </div>
@@ -89,6 +94,44 @@ Copiado al portapapeles
 </div>
 
 <script src="/js/app.js"></script>
+<script>
+
+async function loadRequestsUsage(){
+
+    const box = document.getElementById("requestsBox");
+    const token = localStorage.getItem("token");
+
+    if(!token){
+        box.textContent = "—";
+        return;
+    }
+
+    try{
+
+        const res = await fetch("/auth/me", {
+            headers: { Authorization: "Bearer " + token }
+        });
+
+        const data = await res.json();
+
+        if(!data.status){
+            box.textContent = "—";
+            return;
+        }
+
+        box.textContent = data.unlimited
+            ? "Ilimitadas"
+            : data.requestsUsed + " / " + data.requestsLimit;
+
+    }catch(err){
+        box.textContent = "—";
+    }
+
+}
+
+loadRequestsUsage();
+
+</script>
 
 </body>
 </html>
