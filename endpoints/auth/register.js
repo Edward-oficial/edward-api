@@ -4,6 +4,10 @@ const router = express.Router();
 
 const { readUsers, writeUsers, findUser } = require('../../utils/users');
 const verifyCaptcha = require('../../utils/verifyCaptcha');
+const generateApiKey = require('../../utils/apiKey');
+
+const REQUESTS_LIMIT = 1000;
+const RESET_DAYS = 30;
 
 router.post('/', async (req, res) => {
 
@@ -41,18 +45,27 @@ router.post('/', async (req, res) => {
 
         const users = readUsers();
 
-        users.push({
+        const newUser = {
             username,
             password: hash,
+            apiKey: generateApiKey(),
+            requestsUsed: 0,
+            requestsLimit: REQUESTS_LIMIT,
+            resetAt: new Date(Date.now() + RESET_DAYS * 24 * 60 * 60 * 1000).toISOString(),
+            unlimited: false,
             createdAt: new Date().toISOString()
-        });
+        };
+
+        users.push(newUser);
 
         writeUsers(users);
 
         res.json({
             status: true,
             creator: 'Edward',
-            message: 'Usuario registrado correctamente'
+            message: 'Usuario registrado correctamente',
+            apiKey: newUser.apiKey,
+            requestsLimit: newUser.requestsLimit
         });
 
     } catch (err) {
