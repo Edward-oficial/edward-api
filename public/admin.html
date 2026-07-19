@@ -63,6 +63,7 @@
 
 <div class="sidemenu-title" style="margin-top:20px;">Cuenta</div>
 <a href="/admin" class="menu-link active">Panel Admin</a>
+<a href="#" class="menu-link" onclick="copyApiKey();return false;">Copiar mi API Key</a>
 <a href="#" class="menu-link" onclick="logout();return false;">Cerrar sesión</a>
 </nav>
 
@@ -123,8 +124,20 @@ async function loadUsers(){
             desc.className = "desc";
             desc.textContent = "Registrado: " + new Date(u.createdAt).toLocaleString();
 
+            const key = document.createElement("div");
+            key.className = "desc";
+            key.textContent = "API Key: " + (u.apiKey || "—");
+
+            const usage = document.createElement("div");
+            usage.className = "desc";
+            usage.textContent = u.unlimited
+                ? "Solicitudes: ilimitadas"
+                : "Solicitudes: " + u.requestsUsed + " / " + u.requestsLimit;
+
             card.appendChild(path);
             card.appendChild(desc);
+            card.appendChild(key);
+            card.appendChild(usage);
             box.appendChild(card);
 
         });
