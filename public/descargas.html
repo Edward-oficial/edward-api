@@ -30,6 +30,7 @@
 <a href="/anime" class="menu-link">Anime</a>
 <div class="sidemenu-title" style="margin-top:20px;">Cuenta</div>
 <a href="/admin" id="adminLink" class="menu-link" style="display:none;">Panel Admin</a>
+<a href="#" class="menu-link" onclick="copyApiKey();return false;">Copiar mi API Key</a>
 <a href="#" class="menu-link" onclick="logout();return false;">Cerrar sesión</a>
 </nav>
 
@@ -42,7 +43,7 @@
 
 <div class="method">GET</div>
 
-<div class="path">/descargas/youtube?url=link</div>
+<div class="path">/descargas/youtube?url=link&apikey=TU_API_KEY</div>
 
 <div class="desc">
 Descargar video de YouTube (opcional: &quality=144/240/360/480/720/1080)
@@ -59,7 +60,7 @@ placeholder="Pega el link de YouTube..."
 Probar
 </button>
 
-<button class="copy" onclick="copyEndpoint('/descargas/youtube?url=link')">
+<button class="copy" onclick="copyEndpoint('/descargas/youtube?url=link&apikey=TU_API_KEY')">
 Copiar Endpoint
 </button>
 
@@ -71,7 +72,7 @@ Copiar Endpoint
 
 <div class="method">GET</div>
 
-<div class="path">/descargas/ytaudio?url=link</div>
+<div class="path">/descargas/ytaudio?url=link&apikey=TU_API_KEY</div>
 
 <div class="desc">
 Descargar solo el audio (mp3) de un video de YouTube
@@ -88,7 +89,7 @@ placeholder="Pega el link de YouTube..."
 Probar
 </button>
 
-<button class="copy" onclick="copyEndpoint('/descargas/ytaudio?url=link')">
+<button class="copy" onclick="copyEndpoint('/descargas/ytaudio?url=link&apikey=TU_API_KEY')">
 Copiar Endpoint
 </button>
 
@@ -100,7 +101,7 @@ Copiar Endpoint
 
 <div class="method">GET</div>
 
-<div class="path">/descargas/tiktok?url=link</div>
+<div class="path">/descargas/tiktok?url=link&apikey=TU_API_KEY</div>
 
 <div class="desc">
 Descargar un video de TikTok sin marca de agua
@@ -117,7 +118,7 @@ placeholder="Pega el link de TikTok..."
 Probar
 </button>
 
-<button class="copy" onclick="copyEndpoint('/descargas/tiktok?url=link')">
+<button class="copy" onclick="copyEndpoint('/descargas/tiktok?url=link&apikey=TU_API_KEY')">
 Copiar Endpoint
 </button>
 
