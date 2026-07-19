@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Search • Edward API</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+
+<header class="topbar">
+<button class="hamburger" onclick="toggleMenu()" aria-label="Menú">
+<span></span><span></span><span></span>
+</button>
+<div class="brand">Edward API</div>
+</header>
+
+<div class="overlay" id="overlay" onclick="closeMenu()"></div>
+
+<nav class="sidemenu" id="sideMenu">
+<div class="sidemenu-title">Categorías</div>
+<a href="/" class="menu-link">Inicio</a>
+<a href="/search" class="menu-link active">Search</a>
+<a href="/descargas" class="menu-link">Descargas</a>
+<a href="/anime" class="menu-link">Anime</a>
+</nav>
+
+<div class="container">
+
+<h2>Search</h2>
+<p class="subtitle" style="margin-bottom:20px;text-align:left;">Endpoints de búsqueda</p>
+
+<div class="card">
+
+<div class="method">GET</div>
+
+<div class="path">/search/yt?q=texto</div>
+
+<div class="desc">
+Buscar videos de YouTube
+</div>
+
+<input
+id="yt"
+placeholder="Escribe lo que deseas buscar..."
+>
+
+<div class="buttons">
+
+<button class="test" onclick="youtube()">
+Buscar
+</button>
+
+<button class="copy" onclick="copyEndpoint('/search/yt?q=texto')">
+Copiar Endpoint
+</button>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<div class="method">GET</div>
+
+<div class="path">/search/tiktok?q=texto</div>
+
+<div class="desc">
+Buscar videos de TikTok
+</div>
+
+<input
+id="tiktok"
+placeholder="Escribe lo que deseas buscar..."
+>
+
+<div class="buttons">
+
+<button class="test" onclick="tiktokSearch()">
+Buscar
+</button>
+
+<button class="copy" onclick="copyEndpoint('/search/tiktok?q=texto')">
+Copiar Endpoint
+</button>
+
+</div>
+
+</div>
+
+<div class="result">
+
+<pre id="json">
+Aquí aparecerá el resultado...
+</pre>
+
+<button
+class="copyJson"
+onclick="copyJson()">
+Copiar JSON
+</button>
+
+</div>
+
+</div>
+
+<div class="toast" id="toast">
+Copiado al portapapeles
+</div>
+
+<script src="/js/app.js"></script>
+<script>
+
+function youtube(){
+
+const q = document.getElementById("yt").value.trim();
+
+if(!q) return;
+
+run("/search/yt?q=" + encodeURIComponent(q));
+
+}
+
+function tiktokSearch(){
+
+const q = document.getElementById("tiktok").value.trim();
+
+if(!q) return;
+
+run("/search/tiktok?q=" + encodeURIComponent(q));
+
+}
+
+</script>
+
+</body>
+</html>
