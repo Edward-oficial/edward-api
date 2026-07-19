@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>404 | Edward API</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+font-family:'Space Grotesk',sans-serif;
+background:#09090b;
+color:#fff;
+display:flex;
+justify-content:center;
+align-items:center;
+min-height:100vh;
+padding:20px;
+}
+
+.card{
+width:100%;
+max-width:700px;
+background:#121218;
+border:1px solid #22222d;
+border-radius:22px;
+padding:35px;
+text-align:center;
+box-shadow:0 0 35px rgba(0,229,255,.08);
+}
+
+.code{
+font-size:90px;
+font-weight:700;
+background:linear-gradient(90deg,#00e5ff,#8b5cf6);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+.title{
+font-size:28px;
+margin-top:10px;
+}
+
+.text{
+margin-top:15px;
+color:#9ca3af;
+line-height:1.7;
+}
+
+.path{
+margin-top:25px;
+background:#0d0d13;
+padding:15px;
+border-radius:12px;
+font-family:'JetBrains Mono',monospace;
+color:#00e5ff;
+word-break:break-all;
+}
+
+.buttons{
+display:flex;
+gap:15px;
+margin-top:30px;
+flex-wrap:wrap;
+}
+
+a{
+flex:1;
+text-decoration:none;
+padding:15px;
+border-radius:12px;
+font-weight:bold;
+transition:.2s;
+}
+
+.home{
+background:#00d4ff;
+color:#000;
+}
+
+.docs{
+background:#1d1d27;
+color:#fff;
+}
+
+a:hover{
+transform:translateY(-2px);
+}
+
+.footer{
+margin-top:30px;
+color:#666;
+font-size:14px;
+}
+
+.footer span{
+color:#00e5ff;
+}
+
+@media(max-width:600px){
+
+.code{
+font-size:70px;
+}
+
+.title{
+font-size:22px;
+}
+
+.buttons{
+flex-direction:column;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="card">
+
+<div class="code">404</div>
+
+<h1 class="title">
+Endpoint no encontrado
+</h1>
+
+<p class="text">
+La ruta que intentaste abrir no existe en <b>Edward API</b>.<br>
+Comprueba que el endpoint esté escrito correctamente.
+</p>
+
+<div class="path" id="path"></div>
+
+<div class="buttons">
+
+<a class="home" href="/">
+ Inicio
+</a>
+
+<a class="docs" href="/">
+ Documentación
+</a>
+
+</div>
+
+<div class="footer">
+
+Edward API • Creado por <span>Edward</span>
+
+</div>
+
+</div>
+
+<script>
+
+document.getElementById("path").textContent=
+window.location.pathname+window.location.search;
+
+</script>
+
+</body>
+</html>
