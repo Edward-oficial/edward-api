@@ -8,12 +8,14 @@ router.get('/', async (req, res) => {
     if (!query) {
         return res.status(400).json({
             status: false,
+            creator: 'Edward',
             error: 'Falta el parámetro q'
         });
     }
 
     try {
         const result = await yts(query);
+
         const videos = result.videos.slice(0, 10).map(v => ({
             title: v.title,
             videoId: v.videoId,
@@ -26,12 +28,15 @@ router.get('/', async (req, res) => {
 
         res.json({
             status: true,
+            creator: 'Edward',
             query,
             results: videos
         });
+
     } catch (err) {
         res.status(500).json({
             status: false,
+            creator: 'Edward',
             error: err.message
         });
     }
