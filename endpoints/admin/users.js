@@ -5,7 +5,7 @@ const router = express.Router();
 const { readUsers } = require('../../utils/users');
 const { ADMIN_EMAIL } = require('../../utils/seedAdmin');
 
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
 
     const authHeader = req.headers.authorization || '';
     const token = authHeader.startsWith('Bearer ') ? authHeader.slice(7) : null;
@@ -30,9 +30,15 @@ router.get('/', (req, res) => {
             });
         }
 
-        const users = readUsers().map(u => ({
+        const allUsers = await readUsers();
+
+        const users = allUsers.map(u => ({
             username: u.username,
             role: u.role || 'user',
+            apiKey: u.apiKey || null,
+            requestsUsed: u.requestsUsed || 0,
+            requestsLimit: u.unlimited ? null : (u.requestsLimit || 1000),
+            unlimited: !!u.unlimited,
             createdAt: u.createdAt
         }));
 
