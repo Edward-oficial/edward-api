@@ -124,9 +124,9 @@ try{
 
     hcaptcha.reset();
 
-}catch{
+}catch(err){
 
-    json.textContent = "Error al iniciar sesión.";
+    json.textContent = "Error al iniciar sesión: " + (err && err.message ? err.message : err);
 
 }
 
