@@ -6,195 +6,27 @@
 <title>Edward API</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-
-<style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-}
-
-body{
-font-family:'Space Grotesk',sans-serif;
-background:#0b0b0f;
-color:#fff;
-padding:20px;
-}
-
-.container{
-max-width:900px;
-margin:auto;
-}
-
-h1{
-font-size:40px;
-text-align:center;
-background:linear-gradient(90deg,#00e5ff,#9d4dff);
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
-}
-
-.subtitle{
-text-align:center;
-color:#9b9b9b;
-margin-top:8px;
-margin-bottom:25px;
-}
-
-.info{
-display:flex;
-justify-content:space-between;
-flex-wrap:wrap;
-gap:10px;
-margin-bottom:25px;
-}
-
-.box{
-flex:1;
-min-width:150px;
-background:#15151d;
-padding:15px;
-border-radius:14px;
-text-align:center;
-}
-
-.box h3{
-font-size:14px;
-color:#aaa;
-margin-bottom:6px;
-}
-
-.box span{
-font-size:22px;
-font-weight:bold;
-}
-
-.card{
-background:#15151d;
-border-radius:18px;
-padding:18px;
-margin-bottom:18px;
-border:1px solid #23232f;
-}
-
-.method{
-display:inline-block;
-background:#00d26a;
-padding:5px 12px;
-border-radius:20px;
-font-size:12px;
-font-weight:bold;
-margin-bottom:12px;
-color:#000;
-}
-
-.path{
-font-family:'JetBrains Mono',monospace;
-font-size:16px;
-word-break:break-all;
-margin-bottom:8px;
-}
-
-.desc{
-color:#9c9c9c;
-margin-bottom:15px;
-}
-
-input{
-width:100%;
-padding:14px;
-border:none;
-outline:none;
-border-radius:12px;
-background:#101015;
-color:white;
-margin-bottom:15px;
-font-size:15px;
-}
-
-.buttons{
-display:flex;
-flex-wrap:wrap;
-gap:10px;
-}
-
-button{
-flex:1;
-padding:14px;
-border:none;
-border-radius:12px;
-cursor:pointer;
-font-weight:bold;
-font-size:15px;
-transition:.2s;
-}
-
-button:hover{
-transform:scale(.98);
-}
-
-.test{
-background:#00d4ff;
-color:black;
-}
-
-.copy{
-background:#2b2b37;
-color:white;
-}
-
-.result{
-margin-top:25px;
-}
-
-pre{
-background:#111116;
-padding:16px;
-border-radius:14px;
-overflow:auto;
-font-family:'JetBrains Mono',monospace;
-font-size:14px;
-white-space:pre-wrap;
-word-break:break-word;
-}
-
-.copyJson{
-margin-top:12px;
-width:100%;
-background:#8a4dff;
-color:white;
-}
-
-.toast{
-position:fixed;
-bottom:20px;
-left:50%;
-transform:translateX(-50%);
-background:#1c1c25;
-padding:12px 18px;
-border-radius:10px;
-display:none;
-}
-
-@media(max-width:600px){
-
-h1{
-font-size:30px;
-}
-
-button{
-width:100%;
-}
-
-.info{
-flex-direction:column;
-}
-
-}
-</style>
+<link rel="stylesheet" href="/css/style.css">
 </head>
 
 <body>
+
+<header class="topbar">
+<button class="hamburger" onclick="toggleMenu()" aria-label="Menú">
+<span></span><span></span><span></span>
+</button>
+<div class="brand">Edward API</div>
+</header>
+
+<div class="overlay" id="overlay" onclick="closeMenu()"></div>
+
+<nav class="sidemenu" id="sideMenu">
+<div class="sidemenu-title">Categorías</div>
+<a href="/" class="menu-link active">Inicio</a>
+<a href="/search" class="menu-link">Search</a>
+<a href="/descargas" class="menu-link">Descargas</a>
+<a href="/anime" class="menu-link">Anime</a>
+</nav>
 
 <div class="container">
 
@@ -213,7 +45,7 @@ API rápida • Moderna • Optimizada
 
 <div class="box">
 <h3>Endpoints</h3>
-<span>3</span>
+<span>4</span>
 </div>
 
 <div class="box">
@@ -223,94 +55,24 @@ API rápida • Moderna • Optimizada
 
 </div>
 
-<div class="card">
+<h2>Categorías</h2>
 
-<div class="method">GET</div>
+<div class="catGrid">
 
-<div class="path">/</div>
+<a href="/search" class="catCard">
+<h3>Search</h3>
+<p>Buscadores (YouTube, TikTok...)</p>
+</a>
 
-<div class="desc">
-Página principal
-</div>
+<a href="/descargas" class="catCard">
+<h3>Descargas</h3>
+<p>Descargadores de contenido</p>
+</a>
 
-<div class="buttons">
-
-<button class="test" onclick="run('/')">
-Probar
-</button>
-
-<button class="copy" onclick="copyEndpoint('/')">
-Copiar Endpoint
-</button>
-
-</div>
-
-</div>
-
-<div class="card">
-
-<div class="method">GET</div>
-
-<div class="path">/search/yt?q=texto</div>
-
-<div class="desc">
-Buscar videos de YouTube
-</div>
-
-<input
-id="yt"
-placeholder="Escribe lo que deseas buscar..."
->
-
-<div class="buttons">
-
-<button class="test" onclick="youtube()">
-Buscar
-</button>
-
-<button class="copy" onclick="copyEndpoint('/search/yt?q=texto')">
-Copiar Endpoint
-</button>
-
-</div>
-
-</div>
-
-<div class="card">
-
-<div class="method">GET</div>
-
-<div class="path">/ejemplo/ping</div>
-
-<div class="desc">
-Ejemplo de endpoint
-</div>
-
-<div class="buttons">
-
-<button class="test" onclick="run('/ejemplo/ping')">
-Probar
-</button>
-
-<button class="copy" onclick="copyEndpoint('/ejemplo/ping')">
-Copiar Endpoint
-</button>
-
-</div>
-
-</div>
-
-<div class="result">
-
-<pre id="json">
-Aquí aparecerá el resultado...
-</pre>
-
-<button
-class="copyJson"
-onclick="copyJson()">
-Copiar JSON
-</button>
+<a href="/anime" class="catCard">
+<h3>Anime</h3>
+<p>Endpoints relacionados a anime</p>
+</a>
 
 </div>
 
@@ -320,75 +82,7 @@ Copiar JSON
 Copiado al portapapeles
 </div>
 
-<script>
-
-let last="";
-
-async function run(path){
-
-const json=document.getElementById("json");
-
-json.textContent="Cargando...";
-
-try{
-
-const res=await fetch(path);
-
-const data=await res.json();
-
-last=JSON.stringify(data,null,2);
-
-json.textContent=last;
-
-}catch{
-
-json.textContent="Error al obtener datos.";
-
-}
-
-}
-
-function youtube(){
-
-const q=document.getElementById("yt").value.trim();
-
-if(!q)return;
-
-run("/search/yt?q="+encodeURIComponent(q));
-
-}
-
-function copyEndpoint(path){
-
-navigator.clipboard.writeText(location.origin+path);
-
-toast();
-
-}
-
-function copyJson(){
-
-navigator.clipboard.writeText(last);
-
-toast();
-
-}
-
-function toast(){
-
-const t=document.getElementById("toast");
-
-t.style.display="block";
-
-setTimeout(()=>{
-
-t.style.display="none";
-
-},1800);
-
-}
-
-</script>
+<script src="/js/app.js"></script>
 
 </body>
 </html>
