@@ -118,6 +118,10 @@ try{
 
     json.textContent = JSON.stringify(data, null, 2);
 
+    if(data.status && data.apiKey){
+        localStorage.setItem("apiKey", data.apiKey);
+    }
+
     hcaptcha.reset();
 
 }catch{
